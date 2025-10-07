@@ -1,0 +1,48 @@
+{
+  "name": "turbin3-solana",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "airdrop_to_wallet": "tsx ./tools/airdrop_to_wallet.ts",
+    "base58_to_wallet": "tsx ./tools/base58_to_wallet.ts",
+    "wallet_to_base58": "tsx ./tools/wallet_to_base58.ts",
+    "keygen": "tsx ./prereq/keygen.ts",
+    "airdrop": "tsx ./prereq/airdrop.ts",
+    "transfer": "tsx ./prereq/transfer.ts",
+    "enroll": "tsx ./prereq/enroll.ts",
+    "spl_init": "tsx ./cluster1/spl_init.ts",
+    "spl_mint": "tsx ./cluster1/spl_mint.ts",
+    "spl_transfer": "tsx ./cluster1/spl_transfer.ts",
+    "spl_metadata": "tsx ./cluster1/spl_metadata.ts",
+    "nft_image": "tsx ./cluster1/nft_image.ts",
+    "nft_metadata": "tsx ./cluster1/nft_metadata.ts",
+    "nft_mint": "tsx ./cluster1/nft_mint.ts",
+    "vault_init": "tsx ./cluster1/vault_init.ts",
+    "vault_deposit": "tsx ./cluster1/vault_deposit.ts",
+    "vault_withdraw": "tsx ./cluster1/vault_withdraw.ts",
+    "vault_deposit_spl": "tsx ./cluster1/vault_deposit_spl.ts",
+    "vault_withdraw_spl": "tsx ./cluster1/vault_withdraw_spl.ts",
+    "vault_deposit_nft": "tsx ./cluster1/vault_deposit_nft.ts",
+    "vault_withdraw_nft": "tsx ./cluster1/vault_withdraw_nft.ts",
+    "vault_close": "tsx ./cluster1/vault_close.ts"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "0.31.1",
+    "@metaplex-foundation/mpl-token-metadata": "3.4.0",
+    "@metaplex-foundation/umi": "^1.2.0",
+    "@metaplex-foundation/umi-bundle-defaults": "^1.2.0",
+    "@metaplex-foundation/umi-uploader-irys": "^1.2.0",
+    "@solana-program/system": "^0.8.1",
+    "@solana-program/token-2022": "^0.5.0",
+    "@solana/kit": "^3.0.3",
+    "@types/node": "^24.0.7",
+    "@types/prompt": "^1.1.8",
+    "bs58": "^6.0.0",
+    "prompt": "^1.3.0",
+    "typescript": "^5.3.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
+  }
+}
