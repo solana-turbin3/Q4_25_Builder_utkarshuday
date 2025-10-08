@@ -1,95 +1,52 @@
+import { Keypair, PublicKey, Connection, Commitment } from '@solana/web3.js';
 import {
-  findAssociatedTokenPda,
-  getCreateAssociatedTokenIdempotentInstruction,
-  getMintToCheckedInstruction,
-  TOKEN_2022_PROGRAM_ADDRESS,
-} from '@solana-program/token-2022';
+  getOrCreateAssociatedTokenAccount,
+  mintTo,
+  mintToChecked,
+  TOKEN_PROGRAM_ID,
+} from '@solana/spl-token';
 import wallet from '../turbin3-wallet.json';
-import {
-  createKeyPairSignerFromBytes,
-  createSolanaRpc,
-  devnet,
-  createSolanaRpcSubscriptions,
-  address,
-  appendTransactionMessageInstructions,
-  assertIsSendableTransaction,
-  createTransactionMessage,
-  getSignatureFromTransaction,
-  pipe,
-  sendAndConfirmTransactionFactory,
-  setTransactionMessageFeePayerSigner,
-  setTransactionMessageLifetimeUsingBlockhash,
-  signTransactionMessageWithSigners,
-} from '@solana/kit';
 
 // Import our keypair from the wallet file
-const user = await createKeyPairSignerFromBytes(new Uint8Array(wallet));
+const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 
 //Create a Solana devnet connection
-const rpc = createSolanaRpc(devnet('https://api.devnet.solana.com'));
-const rpcSubscriptions = createSolanaRpcSubscriptions(
-  devnet('ws://api.devnet.solana.com')
-);
+const commitment: Commitment = 'confirmed';
+const connection = new Connection('https://api.devnet.solana.com', commitment);
 
-const DECIMALS = 6;
-const TOKEN_DECIMALS = 10 ** 6;
-
+const decimals = 6;
+const token_decimals = 10n ** BigInt(decimals);
+const mintAmount = 100n * token_decimals;
 // Mint address
-const mint = address('FJfKmkAACzZuQtvRWqHPePxFfWzHoiopXsZMxBSd7nN3');
+const mint = new PublicKey('HrbX2x56CPEUAQdJAp4abhSZS6nTWLCr6Ctj9g6kKpbX');
 
 try {
   // Create an ATA
-  const [ata] = await findAssociatedTokenPda({
+  const ata = await getOrCreateAssociatedTokenAccount(
+    connection,
+    keypair,
     mint,
-    owner: user.address,
-    tokenProgram: TOKEN_2022_PROGRAM_ADDRESS,
-  });
-
-  const createAtaIx = getCreateAssociatedTokenIdempotentInstruction({
-    payer: user,
-    ata,
-    owner: user.address,
-    mint,
-    tokenProgram: TOKEN_2022_PROGRAM_ADDRESS,
-  });
-
-  console.log(`Your ata is: ${ata}`);
-
-  const mintToIx = getMintToCheckedInstruction({
-    mint,
-    mintAuthority: user,
-    decimals: DECIMALS,
-    amount: 1 * TOKEN_DECIMALS,
-    token: ata,
-  });
-
-  const instructions = [createAtaIx, mintToIx];
-
-  const { value: latestBlockhash } = await rpc.getLatestBlockhash().send();
-
-  const transactionMessage = pipe(
-    createTransactionMessage({ version: 0 }),
-    tx => setTransactionMessageFeePayerSigner(user, tx),
-    tx => setTransactionMessageLifetimeUsingBlockhash(latestBlockhash, tx),
-    tx => appendTransactionMessageInstructions(instructions, tx)
+    keypair.publicKey,
+    undefined,
+    commitment,
+    undefined,
+    TOKEN_PROGRAM_ID
   );
 
-  const signedTransaction = await signTransactionMessageWithSigners(
-    transactionMessage
+  console.log(`Your ata is: ${ata.address.toBase58()}`);
+  // Mint to ATA
+  const mintTx = await mintToChecked(
+    connection,
+    keypair,
+    mint,
+    ata.address,
+    keypair,
+    mintAmount,
+    decimals
   );
-  assertIsSendableTransaction(signedTransaction);
-
-  await sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions })(
-    signedTransaction,
-    { commitment: 'confirmed' }
-  );
-  const transactionSignature = getSignatureFromTransaction(signedTransaction);
   console.log(
-    `Success! Check out your TX here: https://explorer.solana.com/tx/${transactionSignature}?cluster=devnet`
+    `Success! Check out your TX here: https://explorer.solana.com/tx/${mintTx}?cluster=devnet`
   );
 } catch (error) {
   console.log(`Oops, something went wrong: ${error}`);
 }
-
-// Your ata is: GWwq2XS2CcF212Z71v56Ukpoy439RAm8P4vttCXm5q2G
-// Success! Check out your TX here: https://explorer.solana.com/tx/5XVvmkaNZYfs2KaFJFxHnZamg5Ud32D8v4RubAfXpPyQnRuaowvfwrAQxsdrBcQEewGAXc22MmbMktLK2AULDMob?cluster=devnet

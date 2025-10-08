@@ -1,85 +1,58 @@
 import {
-  appendTransactionMessageInstructions,
-  assertIsSendableTransaction,
-  assertIsTransactionWithinSizeLimit,
-  createKeyPairSignerFromBytes,
-  createSolanaRpc,
-  createSolanaRpcSubscriptions,
-  createTransactionMessage,
-  devnet,
-  generateKeyPairSigner,
-  getSignatureFromTransaction,
-  pipe,
-  sendAndConfirmTransactionFactory,
-  setTransactionMessageFeePayerSigner,
-  setTransactionMessageLifetimeUsingBlockhash,
-  signTransactionMessageWithSigners,
-} from '@solana/kit';
-import wallet from '../turbin3-wallet.json';
-import { getCreateAccountInstruction } from '@solana-program/system';
+  Keypair,
+  Connection,
+  Commitment,
+  SystemProgram,
+  Transaction,
+  sendAndConfirmTransaction,
+} from '@solana/web3.js';
 import {
-  getInitializeMint2Instruction,
-  getMintSize,
-  TOKEN_2022_PROGRAM_ADDRESS,
-} from '@solana-program/token-2022';
+  createInitializeMint2Instruction,
+  getMinimumBalanceForRentExemptMint,
+  MINT_SIZE,
+  TOKEN_PROGRAM_ID,
+} from '@solana/spl-token';
+import wallet from '../turbin3-wallet.json';
 
 // Import our keypair from the wallet file
-const user = await createKeyPairSignerFromBytes(new Uint8Array(wallet));
-
+const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
 //Create a Solana devnet connection
-const rpc = createSolanaRpc(devnet('https://api.devnet.solana.com'));
-const rpcSubscriptions = createSolanaRpcSubscriptions(
-  devnet('ws://api.devnet.solana.com')
-);
-
+const commitment: Commitment = 'confirmed';
+const connection = new Connection('https://api.devnet.solana.com', commitment);
 const DECIMALS = 6;
 
 try {
-  const mint = await generateKeyPairSigner();
-  const space = BigInt(getMintSize());
-  const rent = await rpc.getMinimumBalanceForRentExemption(space).send();
-
-  const createAccountIx = getCreateAccountInstruction({
-    payer: user,
-    newAccount: mint,
-    lamports: rent,
-    space,
-    programAddress: TOKEN_2022_PROGRAM_ADDRESS,
+  const mint = Keypair.generate();
+  const createAccountIx = SystemProgram.createAccount({
+    fromPubkey: keypair.publicKey,
+    newAccountPubkey: mint.publicKey,
+    lamports: await getMinimumBalanceForRentExemptMint(connection),
+    space: MINT_SIZE,
+    programId: TOKEN_PROGRAM_ID,
   });
 
-  const initMintIx = getInitializeMint2Instruction({
-    mint: mint.address,
-    decimals: DECIMALS,
-    mintAuthority: user.address,
-  });
-  const instructions = [createAccountIx, initMintIx];
-
-  const { value: latestBlockhash } = await rpc.getLatestBlockhash().send();
-
-  const transactionMessage = pipe(
-    createTransactionMessage({ version: 0 }),
-    tx => setTransactionMessageFeePayerSigner(user, tx),
-    tx => setTransactionMessageLifetimeUsingBlockhash(latestBlockhash, tx),
-    tx => appendTransactionMessageInstructions(instructions, tx)
+  const initializeMintIx = createInitializeMint2Instruction(
+    mint.publicKey,
+    DECIMALS,
+    keypair.publicKey,
+    keypair.publicKey,
+    TOKEN_PROGRAM_ID
   );
 
-  const signedTransaction = await signTransactionMessageWithSigners(
-    transactionMessage
-  );
-  assertIsSendableTransaction(signedTransaction);
+  const transaction = new Transaction().add(createAccountIx, initializeMintIx);
 
-  await sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions })(
-    signedTransaction,
-    { commitment: 'confirmed' }
+  const transactionSignature = await sendAndConfirmTransaction(
+    connection,
+    transaction,
+    [keypair, mint]
   );
-  const transactionSignature = getSignatureFromTransaction(signedTransaction);
+
+  console.log(`Mint ID: ${mint.publicKey.toBase58()}`);
   console.log(
     `Success! Check out your TX here: https://explorer.solana.com/tx/${transactionSignature}?cluster=devnet`
   );
-  console.log('Mint Address:', mint.address);
 } catch (error) {
   console.log(`Oops, something went wrong: ${error}`);
 }
-
-// Success! Check out your TX here: https://explorer.solana.com/tx/ePbonoV9bdG6fXrjgPbchshfm4hcuVMdsdgr6nuwdP3H1BSojXGZtzrofDtpx4bM27yi668a9pBr7pfgoXfVCuz?cluster=devnet
-// Mint Address: FJfKmkAACzZuQtvRWqHPePxFfWzHoiopXsZMxBSd7nN3
+// Mint ID: HrbX2x56CPEUAQdJAp4abhSZS6nTWLCr6Ctj9g6kKpbX
+// Success! Check out your TX here: https://explorer.solana.com/tx/2vY4GR5HWKUs4h8KVAZw1N42eJn3uMJ8RZyrzKoBPbVRiUXDEQBGYGjNpZt1HgX2g1cAmpbnS6ypbx9STxbt8cpq?cluster=devnet
