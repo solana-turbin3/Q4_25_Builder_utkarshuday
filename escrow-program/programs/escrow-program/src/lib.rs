@@ -20,10 +20,13 @@ pub mod escrow_program {
     }
 
     pub fn take(ctx: Context<Take>) -> Result<()> {
-        ctx.accounts.handler()
+        ctx.accounts.deposit()?;
+        ctx.accounts.withdraw()?;
+        ctx.accounts.close_vault()
     }
 
     pub fn refund(ctx: Context<Refund>) -> Result<()> {
-        ctx.accounts.handler()
+        ctx.accounts.refund()?;
+        ctx.accounts.close_vault()
     }
 }
