@@ -1,0 +1,52 @@
+[2025-11-05--19-51-34 INFO actix_server::builder] starting 5 workers
+[2025-11-05--19-51-34 INFO actix_server::server] Tokio runtime found; starting in existing Tokio runtime
+[2025-11-05--19-51-34 INFO actix_server::server] starting service: "actix-web-service-127.0.0.1:18488", workers: 5, listening on: 127.0.0.1:18488
+[2025-11-05--19-51-34 INFO parity_ws] Listening for new connections on 127.0.0.1:8900.
+[2025-11-05--19-51-35 INFO txtx::svm::deploy_program] [Recovery Instructions] - An ephemeral authority account will be created and funded to write to the buffer account.
+[2025-11-05--19-51-35 INFO txtx::svm::deploy_program] [Recovery Instructions] - Please save the following information in case the deployment fails and the account needs to be recovered:
+[2025-11-05--19-51-35 INFO txtx::svm::deploy_program] [Recovery Instructions] - Ephemeral authority public key: HC5wyYvvqcbsPtwWBoeFFxpmoFVa6s5ZE1YfWoiLwaWu
+[2025-11-05--19-51-35 INFO txtx::svm::deploy_program] [Recovery Instructions] - Ephemeral authority secret key: [216, 132, 44, 39, 138, 104, 200, 244, 24, 79, 236, 83, 133, 244, 245, 244, 79, 47, 78, 220, 244, 211, 187, 20, 77, 36, 173, 119, 154, 215, 194, 181, 240, 145, 249, 105, 154, 70, 150, 92, 64, 203, 37, 13, 16, 20, 59, 182, 71, 118, 203, 41, 91, 249, 214, 164, 157, 185, 188, 55, 253, 191, 79, 170]
+[2025-11-05--19-51-36 INFO txtx::svm::deploy_program] Account Created - Ephemeral authority account created and funded to write to buffer
+[2025-11-05--19-51-36 INFO txtx::svm::deploy_program] [Recovery Instructions] - Creating program buffer account at pubkey 24W1veZZA9EnVggE3BvzkAfb4L4Atv3fnE1phu3D8cDy
+[2025-11-05--19-51-36 INFO txtx::svm::deploy_program] Account Created - Program buffer account created
+[2025-11-05--19-51-39 INFO txtx::svm::deploy_program] Buffer Ready - Writing to buffer account is complete
+[2025-11-05--19-51-39 INFO txtx::svm::deploy_program] Program Created - Program 9ZM84yzxmwBM4Sm1wdb9m5Yxzt97AB2hrvMwZ9i4tNfK has been deployed
+[2025-11-05--19-51-40 INFO txtx::svm::deploy_program] Complete - Ephemeral authority account closed and leftover funds returned to payer
+[2025-11-05--19-51-44 INFO parity_ws::io] Accepted a new tcp connection from 127.0.0.1:49176.
+[2025-11-05--14-21-51 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-21-53 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-21-54 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-21-55 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-21-56 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-21-57 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-21-58 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-21-59 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-00 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-01 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-02 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-03 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-04 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-05 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-06 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-07 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-08 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-09 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-10 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-11 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-12 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-13 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-14 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-15 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-16 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-17 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-18 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-19 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-20 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-21 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--14-22-22 ERROR hyper::server::tcp] accept error: Too many open files (os error 24)
+[2025-11-05--19-52-35 INFO actix_server::worker] shutting down idle worker
+[2025-11-05--19-52-35 INFO actix_server::worker] shutting down idle worker
+[2025-11-05--19-52-35 INFO actix_server::worker] shutting down idle worker
+[2025-11-05--19-52-35 INFO actix_server::worker] shutting down idle worker
+[2025-11-05--19-52-35 INFO actix_server::worker] shutting down idle worker
+[2025-11-05--19-52-35 INFO actix_server::accept] accept thread stopped
