@@ -41,21 +41,21 @@ The IL Protection protocol enables liquidity providers (LPs) to purchase insuran
 The protocol is built on Solana using the Anchor framework and consists of five main instructions:
 ```
 ┌─────────────────────────────────────────────────────┐
-│                  IL Protection Pool                  │
+│                  IL Protection Pool                 │
 ├─────────────────────────────────────────────────────┤
-│                                                      │
+│                                                     │
 │  Pool Vault (Collateral Storage)                    │
 │  ├── Total Shares                                   │
 │  ├── Locked Shares (backing policies)               │
 │  └── Available Shares (withdrawable)                │
-│                                                      │
+│                                                     │
 ├─────────────────────────────────────────────────────┤
-│                                                      │
-│  Underwriters              Liquidity Providers       │
+│                                                     │
+│  Underwriters              Liquidity Providers      │
 │  ├── Stake Collateral      ├── Buy Protection       │
 │  ├── Earn Premiums         ├── Define Coverage      │
 │  └── Withdraw Funds        └── Claim Payouts        │
-│                                                      │
+│                                                     │
 └─────────────────────────────────────────────────────┘
 ```
 
