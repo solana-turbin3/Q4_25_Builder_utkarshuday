@@ -1,0 +1,14 @@
+[2025-11-20--10-26-44 INFO actix_server::builder] starting 5 workers
+[2025-11-20--10-26-44 INFO actix_server::server] Tokio runtime found; starting in existing Tokio runtime
+[2025-11-20--10-26-44 INFO actix_server::server] starting service: "actix-web-service-127.0.0.1:18488", workers: 5, listening on: 127.0.0.1:18488
+[2025-11-20--10-26-44 INFO parity_ws] Listening for new connections on 127.0.0.1:8900.
+[2025-11-20--10-26-45 INFO txtx::svm::deploy_program] [Recovery Instructions] - An ephemeral authority account will be created and funded to write to the buffer account.
+[2025-11-20--10-26-45 INFO txtx::svm::deploy_program] [Recovery Instructions] - Please save the following information in case the deployment fails and the account needs to be recovered:
+[2025-11-20--10-26-45 INFO txtx::svm::deploy_program] [Recovery Instructions] - Ephemeral authority public key: 4mb4MtGdkWk71jaAvvfbG2ScB8DoSPUUVEf62SLgXL6G
+[2025-11-20--10-26-45 INFO txtx::svm::deploy_program] [Recovery Instructions] - Ephemeral authority secret key: [53, 211, 90, 72, 144, 173, 44, 246, 172, 172, 228, 37, 209, 203, 168, 236, 213, 35, 96, 158, 83, 16, 123, 173, 29, 13, 240, 125, 16, 138, 5, 210, 55, 255, 32, 52, 194, 255, 244, 192, 239, 192, 64, 122, 176, 148, 97, 91, 209, 123, 232, 234, 62, 219, 103, 111, 22, 149, 11, 213, 247, 59, 143, 157]
+[2025-11-20--10-26-45 INFO txtx::svm::deploy_program] Account Created - Ephemeral authority account created and funded to write to buffer
+[2025-11-20--10-26-45 INFO txtx::svm::deploy_program] [Recovery Instructions] - Creating program buffer account at pubkey 273MVdWEDSsoe8scTtHY1rLU7Cb5cb1AFfnvFdmjo9mL
+[2025-11-20--10-26-46 INFO txtx::svm::deploy_program] Account Created - Program buffer account created
+[2025-11-20--10-26-48 INFO txtx::svm::deploy_program] Buffer Ready - Writing to buffer account is complete
+[2025-11-20--10-26-48 INFO txtx::svm::deploy_program] Program Created - Program 4r5xfzNSHZ2uBY2Tctqwt3S6Ug3DAamKcsT2rvU8NSPc has been deployed
+[2025-11-20--10-26-49 INFO txtx::svm::deploy_program] Complete - Ephemeral authority account closed and leftover funds returned to payer
